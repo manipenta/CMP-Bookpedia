@@ -22,21 +22,15 @@ import com.plcoding.bookpedia.book.presentation.book_list.BookListScreenRoot
 import com.plcoding.bookpedia.book.presentation.book_list.BookListViewModel
 import com.plcoding.bookpedia.core.data.HttpClientFactory
 import io.ktor.client.engine.HttpClientEngine
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 @Preview
-fun App(engine: HttpClientEngine) {
+fun App() {
     MaterialTheme {
+        val viewModel = koinViewModel<BookListViewModel>()
         BookListScreenRoot(
-            viewModel = remember { BookListViewModel(
-                repository = DefaultBookRepository(
-                    remoteBookDataSource = KtorRemoteBookDataSource(
-                        httpClient = HttpClientFactory.create(
-                            engine = engine
-                        )
-                    )
-                )
-            ) },
+            viewModel = viewModel,
             onBookClick = {
 
             }
