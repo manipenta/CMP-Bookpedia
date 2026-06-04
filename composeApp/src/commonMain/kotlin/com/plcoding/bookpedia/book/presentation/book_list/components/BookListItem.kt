@@ -50,7 +50,7 @@ fun BookListItem(
 ) {
     Surface(
         shape = RoundedCornerShape(32.dp),
-        modifier = Modifier
+        modifier = modifier
             .clickable(onClick = onClick),
         color = LightBlue.copy(alpha = 0.2f)
     ) {
