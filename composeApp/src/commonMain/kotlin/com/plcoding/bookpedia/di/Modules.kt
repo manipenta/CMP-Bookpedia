@@ -12,6 +12,8 @@ import com.plcoding.bookpedia.book.presentation.SelectedBookViewModel
 import com.plcoding.bookpedia.book.presentation.book_detail.BookDetailViewModel
 import com.plcoding.bookpedia.book.presentation.book_list.BookListViewModel
 import com.plcoding.bookpedia.core.data.HttpClientFactory
+import io.ktor.client.engine.HttpClientEngine
+import io.ktor.client.engine.cio.CIO
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
@@ -21,6 +23,9 @@ import org.koin.dsl.module
 expect val platformModule: Module
 
 val sharedModule = module {
+    single<HttpClientEngine> {
+        CIO.create()
+    }
     single {
         HttpClientFactory.create(get())
     }
