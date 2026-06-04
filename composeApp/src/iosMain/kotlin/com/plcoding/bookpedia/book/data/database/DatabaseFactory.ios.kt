@@ -1,10 +1,20 @@
+@file:OptIn(ExperimentalForeignApi::class)
+
 package com.plcoding.bookpedia.book.data.database
 
+import androidx.room.Room
 import androidx.room.RoomDatabase
+import kotlinx.cinterop.ExperimentalForeignApi
+import platform.Foundation.NSDocumentDirectory
+import platform.Foundation.NSFileManager
+import platform.Foundation.NSUserDomainMask
 
 actual class DatabaseFactory {
     actual fun create(): RoomDatabase.Builder<FavouriteBookDatabase> {
-        val dbFile = documentDirectory()
+        val dbFile = documentDirectory() + "/${FavouriteBookDatabase.DB_NAME}"
+        return Room.databaseBuilder<FavouriteBookDatabase>(
+            name = dbFile
+        )
     }
 
     private fun documentDirectory(): String {
@@ -15,7 +25,6 @@ actual class DatabaseFactory {
             create = false,
             error = null
         )
-        return requireNotNull(documentDirectory.path)
-        )
+        return requireNotNull(documentDirectory?.path)
     }
 }
